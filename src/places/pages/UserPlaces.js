@@ -38,3 +38,4 @@ const UserPlaces = props => {
 }
 
 export default UserPlaces;
+export { DUMMY_PLACES };

@@ -18,11 +18,17 @@ const Auth = props => {
       isValid: false
     }
   })
+
+  const authSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+
+  }
   return (
     <Card className="authentication">
       <h2>Login Required</h2>
       <hr />
-      <form>
+      <form onSubmit={authSubmitHandler}>
         <Input 
           element="input"
           id="email"
@@ -37,7 +43,7 @@ const Auth = props => {
           id="password"
           type="password"
           label="Password"
-          validators={[VALIDATOR_EMAIL()]}
+          validators={[VALIDATOR_MINLENGTH(5)]}
           errorText="Please enter a valid password, at least 5 characters."
           onInput={inputHandler}
         />

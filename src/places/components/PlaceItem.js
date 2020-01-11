@@ -9,8 +9,19 @@ import './PlaceItem.css';
 
 const PlaceItem = props => {
   const [showMap, setShowMap] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  }
+  const cancelDeleteHandler = () => {
+    setShowConfirmModal(false);
+  }
+  // when DB/Backend setup, wire this up
+  const confirmDeleteHandler = () => {
+    console.log('DELETING...')
+  }
   return (
     <React.Fragment>
       <Modal 
@@ -27,6 +38,14 @@ const PlaceItem = props => {
             zoom={16}
           />
         </div>
+      </Modal>
+      <Modal show={showConfirmModal} header="Are you sure?" footerClass="place-item__modal-actions" footer={
+        <React.Fragment>
+          <Button inverse onClick={cancelDeleteHandler}>CANCEL</Button>
+          <Button danger onClick={confirmDeleteHandler}>DELETE</Button>
+        </React.Fragment>
+      }>
+        <p>Do you want to proceed and delete this place? Please note it can't be undone.</p>
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
@@ -45,7 +64,7 @@ const PlaceItem = props => {
             <Button to={`/places/${props.id}`}>
               EDIT
             </Button>
-            <Button danger>
+            <Button danger onClick={showDeleteWarningHandler}>
               DELETE
             </Button>
           </div>
